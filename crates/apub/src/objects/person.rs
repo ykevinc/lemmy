@@ -107,7 +107,7 @@ impl Object for ApubPerson {
       }),
       public_key: self.public_key(),
       updated: self.updated.map(convert_datetime),
-      inbox: self.inbox_url.clone().into(),
+      inbox: self.inbox_url.clone().unwrap().into(),
     };
     Ok(person)
   }
@@ -191,7 +191,7 @@ impl Actor for ApubPerson {
   }
 
   fn inbox(&self) -> Url {
-    self.inbox_url.clone().into()
+    self.inbox_url.clone().unwrap().into()
   }
 
   fn shared_inbox(&self) -> Option<Url> {

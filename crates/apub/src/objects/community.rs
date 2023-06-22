@@ -198,7 +198,7 @@ impl ApubCommunity {
       .map(|f| {
         f.follower
           .shared_inbox_url
-          .unwrap_or(f.follower.inbox_url)
+          .unwrap_or(f.follower.inbox_url.unwrap())
           .into()
       })
       .unique()
