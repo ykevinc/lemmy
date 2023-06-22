@@ -76,7 +76,7 @@ impl AnnounceActivity {
       actor: community.id().into(),
       to: vec![public()],
       object: IdOrNestedObject::NestedObject(object),
-      cc: vec![community.followers_url.clone().into()],
+      cc: vec![community.followers_url.clone().unwrap().into()],
       kind: AnnounceType::Announce,
       id: generate_activity_id(
         &AnnounceType::Announce,

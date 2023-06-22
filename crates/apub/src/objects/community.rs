@@ -99,7 +99,7 @@ impl Object for ApubCommunity {
       featured: Some(generate_featured_url(&self.actor_id)?.into()),
       inbox: self.inbox_url.clone().map(Into::into),
       outbox: generate_outbox_url(&self.actor_id)?.into(),
-      followers: self.followers_url.clone().into(),
+      followers: self.followers_url.clone().unwrap().into(),
       endpoints: self.shared_inbox_url.clone().map(|s| Endpoints {
         shared_inbox: s.into(),
       }),
