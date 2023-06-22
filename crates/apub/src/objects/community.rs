@@ -97,7 +97,7 @@ impl Object for ApubCommunity {
       image: self.banner.clone().map(ImageObject::new),
       sensitive: Some(self.nsfw),
       featured: Some(generate_featured_url(&self.actor_id)?.into()),
-      inbox: self.inbox_url.clone().into(),
+      inbox: self.inbox_url.clone().map(Into::into),
       outbox: generate_outbox_url(&self.actor_id)?.into(),
       followers: self.followers_url.clone().into(),
       endpoints: self.shared_inbox_url.clone().map(|s| Endpoints {
@@ -173,7 +173,7 @@ impl Actor for ApubCommunity {
   }
 
   fn inbox(&self) -> Url {
-    self.inbox_url.clone().into()
+    self.inbox_url.clone().unwrap().into()
   }
 
   fn shared_inbox(&self) -> Option<Url> {

@@ -47,7 +47,7 @@ pub struct Group {
   pub(crate) id: ObjectId<ApubCommunity>,
   /// username, set at account creation and usually fixed after that
   pub(crate) preferred_username: String,
-  pub(crate) inbox: Url,
+  pub(crate) inbox: Option<Url>,
   pub(crate) followers: Url,
   pub(crate) public_key: PublicKey,
 
@@ -118,7 +118,7 @@ impl Group {
       icon: self.icon.map(|i| i.url.into()),
       banner: self.image.map(|i| i.url.into()),
       followers_url: Some(self.followers.into()),
-      inbox_url: Some(self.inbox.into()),
+      inbox_url: self.inbox.map(Into::into),
       shared_inbox_url: self.endpoints.map(|e| e.shared_inbox.into()),
       moderators_url: self.attributed_to.map(Into::into),
       posting_restricted_to_mods: self.posting_restricted_to_mods,
@@ -149,7 +149,7 @@ impl Group {
       icon: Some(self.icon.map(|i| i.url.into())),
       banner: Some(self.image.map(|i| i.url.into())),
       followers_url: Some(self.followers.into()),
-      inbox_url: Some(self.inbox.into()),
+      inbox_url: Some(self.inbox.unwrap().into()),
       shared_inbox_url: Some(self.endpoints.map(|e| e.shared_inbox.into())),
       moderators_url: self.attributed_to.map(Into::into),
       posting_restricted_to_mods: self.posting_restricted_to_mods,
